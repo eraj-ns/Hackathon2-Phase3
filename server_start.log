@@ -1,0 +1,89 @@
+Starting server...
+INFO:     Started server process [2686]
+INFO:     Waiting for application startup.
+2026-01-26 13:27:16,588 INFO sqlalchemy.engine.Engine select pg_catalog.version()
+2026-01-26 13:27:16,588 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-01-26 13:27:17,015 INFO sqlalchemy.engine.Engine select current_schema()
+2026-01-26 13:27:17,015 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-01-26 13:27:15,534 INFO sqlalchemy.engine.Engine show standard_conforming_strings
+2026-01-26 13:27:15,535 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-01-26 13:27:15,959 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-01-26 13:27:15,969 INFO sqlalchemy.engine.Engine SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2026-01-26 13:27:15,970 INFO sqlalchemy.engine.Engine [generated in 0.00074s] {'table_name': 'task', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2026-01-26 13:27:16,390 INFO sqlalchemy.engine.Engine SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2026-01-26 13:27:16,391 INFO sqlalchemy.engine.Engine [cached since 0.4216s ago] {'table_name': 'users', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2026-01-26 13:27:16,604 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:45700 - "GET / HTTP/1.1" 200 OK
+2026-01-26 13:27:32,138 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-01-26 13:27:32,144 INFO sqlalchemy.engine.Engine SELECT users.id, users.name, users.email, users.image, users."emailVerified", users."hashedPassword", users."createdAt", users."updatedAt" 
+FROM users 
+WHERE users.email = %(email_1)s
+2026-01-26 13:27:32,145 INFO sqlalchemy.engine.Engine [generated in 0.00051s] {'email_1': 'test@example.com'}
+2026-01-26 13:27:32,932 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:52994 - "POST /auth/signin HTTP/1.1" 401 Unauthorized
+2026-01-26 13:29:37,911 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-01-26 13:29:37,911 INFO sqlalchemy.engine.Engine SELECT users.id, users.name, users.email, users.image, users."emailVerified", users."hashedPassword", users."createdAt", users."updatedAt" 
+FROM users 
+WHERE users.email = %(email_1)s
+2026-01-26 13:29:37,912 INFO sqlalchemy.engine.Engine [cached since 133.3s ago] {'email_1': 'dua35347@gmail.com'}
+Traceback (most recent call last):
+  File "/mnt/e/Hackathon2_Todo_App/Phase_2/backend/src/api/auth_router.py", line 71, in signup
+    raise HTTPException(
+fastapi.exceptions.HTTPException
+Signup error: 
+2026-01-26 13:29:38,720 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:48172 - "POST /auth/signup HTTP/1.1" 409 Conflict
+2026-01-26 13:29:48,073 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-01-26 13:29:48,078 INFO sqlalchemy.engine.Engine SELECT users.id, users.name, users.email, users.image, users."emailVerified", users."hashedPassword", users."createdAt", users."updatedAt" 
+FROM users 
+WHERE users.email = %(email_1)s
+2026-01-26 13:29:48,078 INFO sqlalchemy.engine.Engine [cached since 143.4s ago] {'email_1': 'dua35347@gmail.com'}
+2026-01-26 13:29:48,807 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:37898 - "POST /auth/signin HTTP/1.1" 401 Unauthorized
+2026-01-26 13:30:00,004 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-01-26 13:30:00,005 INFO sqlalchemy.engine.Engine SELECT users.id, users.name, users.email, users.image, users."emailVerified", users."hashedPassword", users."createdAt", users."updatedAt" 
+FROM users 
+WHERE users.email = %(email_1)s
+2026-01-26 13:30:00,006 INFO sqlalchemy.engine.Engine [cached since 157.2s ago] {'email_1': 'testuser@example.com'}
+Traceback (most recent call last):
+  File "/mnt/e/Hackathon2_Todo_App/Phase_2/backend/src/api/auth_router.py", line 71, in signup
+    raise HTTPException(
+fastapi.exceptions.HTTPException
+Signup error: 
+2026-01-26 13:30:00,471 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:59460 - "POST /auth/signup HTTP/1.1" 409 Conflict
+2026-01-26 13:30:11,990 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-01-26 13:30:11,990 INFO sqlalchemy.engine.Engine SELECT users.id, users.name, users.email, users.image, users."emailVerified", users."hashedPassword", users."createdAt", users."updatedAt" 
+FROM users 
+WHERE users.email = %(email_1)s
+2026-01-26 13:30:11,991 INFO sqlalchemy.engine.Engine [cached since 169.2s ago] {'email_1': 'testuser@example.com'}
+2026-01-26 13:30:12,741 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:54040 - "POST /auth/signin HTTP/1.1" 401 Unauthorized
+2026-01-26 13:31:13,691 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-01-26 13:31:13,692 INFO sqlalchemy.engine.Engine SELECT users.id, users.name, users.email, users.image, users."emailVerified", users."hashedPassword", users."createdAt", users."updatedAt" 
+FROM users 
+WHERE users.email = %(email_1)s
+2026-01-26 13:31:13,692 INFO sqlalchemy.engine.Engine [cached since 234.6s ago] {'email_1': 'dua35347@gmail.com'}
+2026-01-26 13:31:14,417 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:46596 - "POST /auth/signin HTTP/1.1" 401 Unauthorized
+2026-01-26 13:31:27,461 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-01-26 13:31:27,465 INFO sqlalchemy.engine.Engine SELECT users.id, users.name, users.email, users.image, users."emailVerified", users."hashedPassword", users."createdAt", users."updatedAt" 
+FROM users 
+WHERE users.email = %(email_1)s
+2026-01-26 13:31:27,466 INFO sqlalchemy.engine.Engine [cached since 250.3s ago] {'email_1': 'dua35347@gmail.com'}
+2026-01-26 13:31:28,133 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:34536 - "POST /auth/signin HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:57178 - "OPTIONS /auth/signin HTTP/1.1" 200 OK
+2026-01-26 13:32:49,095 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-01-26 13:32:49,103 INFO sqlalchemy.engine.Engine SELECT users.id, users.name, users.email, users.image, users."emailVerified", users."hashedPassword", users."createdAt", users."updatedAt" 
+FROM users 
+WHERE users.email = %(email_1)s
+2026-01-26 13:32:49,103 INFO sqlalchemy.engine.Engine [cached since 335.6s ago] {'email_1': 'dua35347@gmail.com'}
+2026-01-26 13:32:49,777 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:59960 - "POST /auth/signin HTTP/1.1" 401 Unauthorized
