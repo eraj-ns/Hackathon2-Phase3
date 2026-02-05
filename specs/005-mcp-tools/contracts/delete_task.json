@@ -1,0 +1,48 @@
+{
+  "name": "delete_task",
+  "description": "Deletes a task for the specified user",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "user_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "The ID of the user who owns the task"
+      },
+      "task_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "The ID of the task to delete"
+      }
+    },
+    "required": ["user_id", "task_id"],
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "success": {
+        "type": "boolean",
+        "description": "Whether the operation was successful"
+      },
+      "data": {
+        "type": "object",
+        "properties": {
+          "deleted_task_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The ID of the deleted task"
+          }
+        },
+        "required": ["deleted_task_id"],
+        "additionalProperties": false
+      },
+      "message": {
+        "type": "string",
+        "description": "Optional success message"
+      }
+    },
+    "required": ["success", "data"],
+    "additionalProperties": false
+  }
+}

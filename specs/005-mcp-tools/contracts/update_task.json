@@ -1,0 +1,97 @@
+{
+  "name": "update_task",
+  "description": "Updates an existing task for the specified user",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "user_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "The ID of the user who owns the task"
+      },
+      "task_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "The ID of the task to update"
+      },
+      "title": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 255,
+        "description": "New title for the task (optional)"
+      },
+      "description": {
+        "type": "string",
+        "maxLength": 1000,
+        "description": "New description for the task (optional)"
+      },
+      "completed": {
+        "type": "boolean",
+        "description": "New completion status for the task (optional)"
+      }
+    },
+    "required": ["user_id", "task_id"],
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "success": {
+        "type": "boolean",
+        "description": "Whether the operation was successful"
+      },
+      "data": {
+        "type": "object",
+        "properties": {
+          "task": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "description": "The ID of the task"
+              },
+              "title": {
+                "type": "string",
+                "description": "The title of the task"
+              },
+              "description": {
+                "type": "string",
+                "description": "The description of the task"
+              },
+              "completed": {
+                "type": "boolean",
+                "description": "Whether the task is completed"
+              },
+              "user_id": {
+                "type": "string",
+                "format": "uuid",
+                "description": "The ID of the user who owns the task"
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time",
+                "description": "When the task was created"
+              },
+              "updated_at": {
+                "type": "string",
+                "format": "date-time",
+                "description": "When the task was last updated"
+              }
+            },
+            "required": ["id", "title", "completed", "user_id", "created_at", "updated_at"],
+            "additionalProperties": false
+          }
+        },
+        "required": ["task"],
+        "additionalProperties": false
+      },
+      "message": {
+        "type": "string",
+        "description": "Optional success message"
+      }
+    },
+    "required": ["success", "data"],
+    "additionalProperties": false
+  }
+}

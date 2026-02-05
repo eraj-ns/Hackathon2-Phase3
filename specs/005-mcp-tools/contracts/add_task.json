@@ -1,0 +1,88 @@
+{
+  "name": "add_task",
+  "description": "Creates a new task for the specified user",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "user_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "The ID of the user for whom to create the task"
+      },
+      "title": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 255,
+        "description": "The title of the task"
+      },
+      "description": {
+        "type": "string",
+        "maxLength": 1000,
+        "description": "Optional description of the task"
+      }
+    },
+    "required": ["user_id", "title"],
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "success": {
+        "type": "boolean",
+        "description": "Whether the operation was successful"
+      },
+      "data": {
+        "type": "object",
+        "properties": {
+          "task": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "description": "The ID of the created task"
+              },
+              "title": {
+                "type": "string",
+                "description": "The title of the task"
+              },
+              "description": {
+                "type": "string",
+                "description": "The description of the task"
+              },
+              "completed": {
+                "type": "boolean",
+                "description": "Whether the task is completed"
+              },
+              "user_id": {
+                "type": "string",
+                "format": "uuid",
+                "description": "The ID of the user who owns the task"
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time",
+                "description": "When the task was created"
+              },
+              "updated_at": {
+                "type": "string",
+                "format": "date-time",
+                "description": "When the task was last updated"
+              }
+            },
+            "required": ["id", "title", "completed", "user_id", "created_at", "updated_at"],
+            "additionalProperties": false
+          }
+        },
+        "required": ["task"],
+        "additionalProperties": false
+      },
+      "message": {
+        "type": "string",
+        "description": "Optional success message"
+      }
+    },
+    "required": ["success", "data"],
+    "additionalProperties": false
+  }
+}

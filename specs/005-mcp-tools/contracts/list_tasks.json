@@ -1,0 +1,90 @@
+{
+  "name": "list_tasks",
+  "description": "Retrieves all tasks for the specified user",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "user_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "The ID of the user whose tasks to retrieve"
+      },
+      "completed_only": {
+        "type": "boolean",
+        "description": "If true, only return completed tasks; if false, return all tasks (default: false)"
+      },
+      "limit": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 1000,
+        "description": "Maximum number of tasks to return (default: 100)"
+      }
+    },
+    "required": ["user_id"],
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "success": {
+        "type": "boolean",
+        "description": "Whether the operation was successful"
+      },
+      "data": {
+        "type": "object",
+        "properties": {
+          "tasks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "description": "The ID of the task"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "The title of the task"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "The description of the task"
+                },
+                "completed": {
+                  "type": "boolean",
+                  "description": "Whether the task is completed"
+                },
+                "user_id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "description": "The ID of the user who owns the task"
+                },
+                "created_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "When the task was created"
+                },
+                "updated_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "When the task was last updated"
+                }
+              },
+              "required": ["id", "title", "completed", "user_id", "created_at", "updated_at"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": ["tasks"],
+        "additionalProperties": false
+      },
+      "message": {
+        "type": "string",
+        "description": "Optional success message"
+      }
+    },
+    "required": ["success", "data"],
+    "additionalProperties": false
+  }
+}
