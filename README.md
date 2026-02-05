@@ -1,36 +1,130 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Todo App Backend
 
-## Getting Started
+This is the backend for the Todo App with authentication and task management features.
 
-First, run the development server:
+## Environment Variables Required
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- `DATABASE_URL`: Your Neon PostgreSQL database connection string
+- `AUTH_SECRET`: Secret key for JWT token generation
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Endpoints
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `/auth/signup` - User registration
+- `/auth/signin` - User login
+- `/api/tasks/` - Task management endpoints
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Framework
 
-## Learn More
+Built with FastAPI and SQLModel, connected to Neon PostgreSQL database.
 
-To learn more about Next.js, take a look at the following resources:
+## Setup Instructions
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Prerequisites
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Node.js 18+
+- Python 3.11+
+- PostgreSQL (or Neon Serverless PostgreSQL)
 
-## Deploy on Vercel
+### Backend Setup
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2. Create a virtual environment and activate it:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Copy the environment file and update the values:
+   ```bash
+   cp ../.env .env
+   # Edit .env to add your database connection and JWT secret
+   ```
+
+5. Run the backend:
+   ```bash
+   python -m src.main
+   ```
+
+### Frontend Setup
+
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+## Features
+
+- Secure user registration with email validation and strong password requirements
+- Better Auth JWT with 30min expiry
+- User data isolation - users can only access their own todos
+- Protected API endpoints that require valid JWT tokens
+- Responsive frontend interface
+
+## API Endpoints
+
+### Authentication
+
+- Frontend handles auth via Better Auth: /sign-up, /sign-in (POST /api/auth/*)
+- `POST /api/auth/login` - Login and get JWT token
+- `GET /api/auth/verify` - Verify JWT token
+
+### Todo Management
+
+- `GET /api/todos` - Get all todos for the authenticated user
+- `POST /api/tasks` - Create task (title required)
+- `GET /api/todos/{todo_id}` - Get a specific todo
+- `PUT /api/todos/{todo_id}` - Update a specific todo
+- `DELETE /api/todos/{todo_id}` - Delete a specific todo
+
+All todo endpoints require a valid JWT token in the `Authorization: Bearer {token}` header.
+
+## Security Features
+
+- Passwords are securely hashed using bcrypt
+- JWT tokens are signed with a secret key stored in environment variables
+- All protected endpoints validate JWT tokens
+- Users can only access their own data
+- Input validation on all endpoints
+
+## Authentication Layout Structure
+
+This application implements a modern authentication flow using Next.js 13+ App Router with route groups:
+
+### Route Groups:
+- `(auth)` - Contains authentication-related pages (login, signup, reset password) with a centered layout
+- `(protected)` - Contains authenticated user pages (dashboard, todos) with a protected layout that checks auth status
+- Root (`/`) - Public pages accessible to all users
+
+### Key Features:
+- Authentication context with login, logout, and registration
+- Protected routes that redirect unauthenticated users to login
+- Persistent user session using localStorage
+- Responsive navigation that adapts based on authentication status
+- Dark mode support throughout the application
+
+### Pages:
+- `/` - Public landing page
+- `/login` - User login form
+- `/signup` - User registration form
+- `/reset-password` - Password reset form
+- `/dashboard` - User dashboard with stats
+- `/todos` - Todo management interface
